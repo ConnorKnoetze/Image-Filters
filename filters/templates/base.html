@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Filters{% endblock %}</title>
+
+    {% block extra_css %} {% endblock %}
+</head>
+<body>
+    {% include 'components/nav/nav.html' %}
+    {% block body %} {% endblock %}
+</body>
+</html>

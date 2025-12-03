@@ -1,0 +1,15 @@
+<div id="upload-cleanup"
+     data-uploaded-filenames='[ "{{ uploaded_filename }}", "{{ processed_filename }}" ]'
+     data-delete-url="{{ url_for('upload.delete_upload') }}">
+</div>
+
+<script src="{{ url_for('static', filename='/js/upload_cleanup/upload_cleanup.js') }}"></script>
+
+<form action="{{ action or url_for('upload.upload_image') }}" method="post" enctype="multipart/form-data">
+    {% if next %}
+        <input type="hidden" name="next" value="{{ next }}">
+    {% endif %}
+    <label for="file"></label>
+    <input type="file" id="file" name="file" accept="image/*" required>
+    <input type="submit" value="{{ submit_text or 'Upload Image' }}">
+</form>
