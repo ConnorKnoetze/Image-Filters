@@ -5,11 +5,17 @@
 
 <script src="{{ url_for('static', filename='/js/upload_cleanup/upload_cleanup.js') }}"></script>
 
-<form action="{{ action or url_for('upload.upload_image') }}" method="post" enctype="multipart/form-data">
+
+<form id="image-upload-form" action="{{ action or url_for('upload.upload_image') }}" method="post" enctype="multipart/form-data">
     {% if next %}
         <input type="hidden" name="next" value="{{ next }}">
     {% endif %}
+
+    <!-- Hidden field to carry the pixel size -->
+    <input type="hidden" name="pixel_size" id="pixel-size-hidden" value="">
+
     <label for="file"></label>
     <input type="file" id="file" name="file" accept="image/*" required>
     <input type="submit" value="{{ submit_text or 'Upload Image' }}">
 </form>
+<script src="{{ url_for('static', filename='/js/forms/image_upload_form/image_upload_form.js') }}"></script>

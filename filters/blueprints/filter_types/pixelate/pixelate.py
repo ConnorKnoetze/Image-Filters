@@ -14,12 +14,19 @@ def allowed_file(filename):
 @pixelate_bp.route('/filters/pixelate', methods=['GET'])
 def pixelate():
     from filters.blueprints.filter_types.pixelate.services import pixelate
-    filename = request.args.get('filename')
+    filename = request.args.get("filename")
+
+    raw_pixel = request.args.get("pixel_size") or request.form.get("pixel_size") or None
+    try:
+        pixel_size = int(raw_pixel) if raw_pixel not in (None, "") else None
+    except ValueError:
+        pixel_size = None
+
     original_url = None
     processed_url = None
     processed_filename = None
     if filename:
-        processed_url, original_url, processed_filename = pixelate(filename)
+        processed_url, original_url, processed_filename = pixelate(filename, pixel_size=pixel_size)
 
     nav_items = get_nav_items("Pixelate")
 

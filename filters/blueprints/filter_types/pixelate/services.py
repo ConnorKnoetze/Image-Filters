@@ -8,14 +8,13 @@ from filters.blueprints.filter_types.pixelate.pixelate import allowed_file
 from filters.blueprints.upload.upload import UPLOAD_FOLDER
 
 
-def pixelate(filename):
+def pixelate(filename, pixel_size=64):
     filename = secure_filename(filename)
     original_path = os.path.join(UPLOAD_FOLDER, filename)
     if os.path.exists(original_path) and allowed_file(filename):
         try:
             img = Image.open(original_path)
             w, h = img.size
-            pixel_size = 16
             small_w = max(1, w // pixel_size)
             small_h = max(1, h // pixel_size)
             img_small = img.resize((small_w, small_h), resample=Image.NEAREST)
