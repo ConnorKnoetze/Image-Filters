@@ -20,42 +20,6 @@ def _append_query(url, params):
     new_query = urlencode(q)
     return urlunparse((parsed.scheme, parsed.netloc, parsed.path, parsed.params, new_query, parsed.fragment))
 
-@upload_bp.route('/upload', methods=['POST'])
-def upload_image():
-    """
-    Saves uploaded file and redirects to the `next` URL with ?filename=<saved-file>
-    If no next provided, returns a JSON response with the filename (and pixel_size if present).
-    """
-    file = request.files.get('file')
-    if not file:
-        return jsonify({'error': 'no file provided'}), 400
-
-    filename = secure_filename(file.filename or '')
-    if not filename or not allowed_file(filename):
-        return jsonify({'error': 'invalid file type'}), 400
-
-    save_path = os.path.join(UPLOAD_FOLDER, filename)
-    try:
-        file.save(save_path)
-    except Exception as e:
-        return jsonify({'error': 'failed to save file', 'detail': str(e)}), 500
-
-    pixel_size = (request.form.get('pixel_size') or request.args.get('pixel_size') or '').strip()
-
-    next_url = request.form.get('next') or request.args.get('next')
-    if next_url:
-        params = {'filename': filename}
-        if pixel_size != '':
-            params['pixel_size'] = pixel_size
-        redirect_url = _append_query(next_url, params)
-        return redirect(redirect_url)
-
-    # Fallback: return JSON with uploaded filename and optional pixel_size
-    resp = {'filename': filename}
-    if pixel_size != '':
-        resp['pixel_size'] = pixel_size
-    return jsonify(resp), 200
-
 @upload_bp.route('/upload/delete', methods=['POST'])
 def delete_upload():
     """
