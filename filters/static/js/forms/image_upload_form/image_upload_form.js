@@ -74,3 +74,94 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+(function () {
+  function findForms() {
+    const byClass = Array.from(document.querySelectorAll('form.image-upload-form'));
+    const byId = document.getElementById('image-upload-form');
+    if (byId && !byClass.includes(byId)) byClass.push(byId);
+    return byClass;
+  }
+
+  function ensureOverlay(form) {
+    let overlay = form.querySelector('.upload-loading-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'upload-loading-overlay';
+      overlay.setAttribute('aria-hidden', 'true');
+      overlay.hidden = true;
+      overlay.innerHTML = '<div class="upload-loading-box" role="status" aria-live="polite"><div class="upload-spinner" aria-hidden="true"></div><div class="upload-loading-text">Uploading\u2026</div></div>';
+      form.style.position = form.style.position || 'relative';
+      form.appendChild(overlay);
+    }
+    return overlay;
+  }
+
+  function toggleElements(form, disabled) {
+    Array.from(form.querySelectorAll('input, button, select, textarea')).forEach(el => {
+      // keep file input enabled (optional) but disable to prevent double submits
+      if (el.type === 'file') el.disabled = disabled;
+      else el.disabled = disabled;
+    });
+  }
+
+  function showLoading(form, message) {
+    const overlay = ensureOverlay(form);
+    const text = overlay.querySelector('.upload-loading-text');
+    if (message) text.textContent = message;
+    overlay.hidden = false;
+    overlay.setAttribute('aria-hidden', 'false');
+    toggleElements(form, true);
+    // accessibility
+    form.setAttribute('aria-busy', 'true');
+    // fallback: re-enable after 30s if nothing happens (prevents permanent lock)
+    form.__uploadTimeout = setTimeout(() => hideLoading(form), 30000);
+  }
+
+  function hideLoading(form) {
+    const overlay = form.querySelector('.upload-loading-overlay');
+    if (!overlay) return;
+    overlay.hidden = true;
+    overlay.setAttribute('aria-hidden', 'true');
+    toggleElements(form, false);
+    form.removeAttribute('aria-busy');
+    if (form.__uploadTimeout) {
+      clearTimeout(form.__uploadTimeout);
+      form.__uploadTimeout = null;
+    }
+  }
+
+  // auto-bind
+  document.addEventListener('DOMContentLoaded', function () {
+    const forms = findForms();
+    forms.forEach(form => {
+      ensureOverlay(form);
+      form.addEventListener('submit', function (e) {
+        // If the submit was prevented by client code, do not show the overlay
+        // Delay slightly to allow synchronous validation code to run
+        setTimeout(() => {
+          if (!e.defaultPrevented) showLoading(form);
+        }, 10);
+      }, { passive: true });
+    });
+  });
+
+  // expose globally for manual control (e.g. when using fetch/XHR)
+  window.ImageUpload = {
+    showLoading: function (formOrSelector, message) {
+      const form = typeof formOrSelector === 'string' ? document.querySelector(formOrSelector) : formOrSelector;
+      if (!form) return;
+      showLoading(form, message);
+    },
+    hideLoading: function (formOrSelector) {
+      const form = typeof formOrSelector === 'string' ? document.querySelector(formOrSelector) : formOrSelector;
+      if (!form) return;
+      hideLoading(form);
+    }
+  };
+
+  // Hide overlay on navigation/back/forward to keep UI consistent
+  window.addEventListener('pageshow', () => {
+    findForms().forEach(f => hideLoading(f));
+  });
+})();
