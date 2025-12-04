@@ -16,6 +16,8 @@ def create_app():
     app.register_blueprint(pixelate_bp)
     from filters.blueprints.filter_types.grayscale.grayscale import grayscale_bp
     app.register_blueprint(grayscale_bp)
+    from filters.blueprints.filter_types.inverted.inverted import inverted_bp
+    app.register_blueprint(inverted_bp)
 
     from filters.blueprints.upload.upload import upload_bp
     app.register_blueprint(upload_bp)
