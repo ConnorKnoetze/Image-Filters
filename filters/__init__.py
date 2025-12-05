@@ -20,6 +20,8 @@ def create_app():
     app.register_blueprint(inverted_bp)
     from filters.blueprints.filter_types.duotone.duotone import duotone_bp
     app.register_blueprint(duotone_bp)
+    from filters.blueprints.filter_types.gaussian.gaussian import gaussian_bp
+    app.register_blueprint(gaussian_bp)
 
     from filters.blueprints.upload.upload import upload_bp
     app.register_blueprint(upload_bp)
