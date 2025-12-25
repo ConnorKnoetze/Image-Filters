@@ -25,8 +25,7 @@ nav a{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    padding: 5px;
+    margin-bottom: 5px;
     text-decoration: none;
     color: white;
 }
@@ -47,13 +46,14 @@ nav ul li a{
 .nav-brand{
     display: flex;
     flex-direction: row;
+    padding: 8px 12px;
     align-items: center;
-    padding: 0 5px 0 5px;
+    transition: background 0.3s ease;
 }
 
 .nav-brand:hover{
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
+    text-shadow: darkgrey 0 0 20px;
+    transition: text-shadow 0.3s ease;
 }
 
 .nav-brand h1{
@@ -62,9 +62,26 @@ nav ul li a{
 
 .nav-list{
     display: flex;
-    gap: 15px;
-    padding: 10px;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.nav-item{
+    display: flex;
+    height : 100%;
+    transition: background 0.3s ease;
+}
+
+.nav-item :hover{
+    text-shadow: white 0 0 20px;
+    transition: text-shadow 0.3s ease;
+}
+
+.nav-link{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 12px;
+    height: 100%;
 }

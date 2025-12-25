@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const update = (withTransition = true) => {
     const width = getSlideWidth();
-    track.style.transition = withTransition ? "transform 2s ease" : "none";
+    track.style.transition = withTransition ? "transform 5s ease" : "none";
     track.style.transform = `translateX(-${index * width}px)`;
   };
 
@@ -41,5 +41,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   update(false);
   window.addEventListener("resize", () => update(false));
-  setInterval(tick, 3000);
+  setInterval(tick, 7000);
 });

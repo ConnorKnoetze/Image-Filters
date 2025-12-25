@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Greyscale Filter{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='filters/css/pages/filter_types/grayscale/grayscale.css') }}">
-{#    <script src="{{ url_for('static', filename='js/filters/grayscale/grayscale.js') }}"></script>#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/pages/filter_types/filter_general.css') }}">
     <script src="{{ url_for('static', filename='js/components/slider.js') }}"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
@@ -12,29 +11,35 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Greyscale Filter</h1>
-        <div class="controls">
-            <label for="intensity">Intensity:</label>
-            <input type="range" id="intensity" name="intensity" min="1" max="100" value="1" data-slider-target="#intensity-value">
-            <span id="intensity-value" class="slider-value">1</span>
-            <p>Default and optimal value is 1</p>
-            <p></p>
+    <div class="filter-container">
+        <div class="container">
+            <h1>Greyscale Filter</h1>
+            <div class="controls">
+                <label for="intensity">Intensity:</label>
+                <input type="range" id="intensity" name="intensity" min="1" max="100" value="1" data-slider-target="#intensity-value">
+                <span id="intensity-value" class="slider-value">1</span>
+                <p>Default and optimal value is 1</p>
+                <p></p>
+            </div>
+            {% include 'components/forms/image_upload_form.html' %}
         </div>
-        {% include 'components/forms/image_upload_form.html' %}
-    </div>
-    {% if original_url %}
         <div class="image-results">
             <div class="image-container">
                 <h2>Original Image</h2>
-                <img src="{{ original_url }}" alt="Original Image">
+                {% if original_url %}
+                    <img src="{{ original_url }}" alt="Original Image">
+                {% else %}
+                <img src="{{ url_for('static', filename='/images/assets/upload_placeholder.png') }}" alt="upload_placeholder">
+                {% endif %}
             </div>
-            {% if processed_url %}
-                <div class="image-container">
-                    <h2>Greyscale Image</h2>
-                    <img src="{{ processed_url }}" alt="Greyscale Image">
-                </div>
-            {% endif  %}
+            <div class="image-container">
+                <h2>Duotone Image</h2>
+                {% if processed_url %}
+                    <img src="{{ processed_url }}" alt="Grayscale Image">
+                {% else %}
+                    <img src="{{ url_for('static', filename='/images/assets/upload_placeholder.png') }}" alt="upload_placeholder">
+                {% endif  %}
+            </div>
         </div>
-    {% endif %}
+    </div>
 {% endblock %}

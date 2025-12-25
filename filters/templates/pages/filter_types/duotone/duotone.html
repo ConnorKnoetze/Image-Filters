@@ -1,27 +1,32 @@
 {% extends 'base.html' %}
 {% block title %}Duotone Filter{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='filters/css/pages/filter_types/grayscale/grayscale.css') }}">
-{#    <script src="{{ url_for('static', filename='js/filters/grayscale/grayscale.js') }}"></script>#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/pages/filter_types/filter_general.css') }}">
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Duotone Filter</h1>
-        {% include 'components/forms/image_upload_form.html' %}
-    </div>
-    {% if original_url %}
+    <div class="filter-container">
+        <div class="container">
+            <h1>Duotone Filter</h1>
+            {% include 'components/forms/image_upload_form.html' %}
+        </div>
         <div class="image-results">
             <div class="image-container">
                 <h2>Original Image</h2>
-                <img src="{{ original_url }}" alt="Original Image">
+                {% if original_url %}
+                    <img src="{{ original_url }}" alt="Original Image">
+                {% else %}
+                <img src="{{ url_for('static', filename='/images/assets/upload_placeholder.png') }}" alt="upload_placeholder">
+                {% endif %}
             </div>
-            {% if processed_url %}
-                <div class="image-container">
-                    <h2>Duotone Image</h2>
+            <div class="image-container">
+                <h2>Duotone Image</h2>
+                {% if processed_url %}
                     <img src="{{ processed_url }}" alt="duotone Image">
-                </div>
-            {% endif  %}
+                {% else %}
+                    <img src="{{ url_for('static', filename='/images/assets/upload_placeholder.png') }}" alt="upload_placeholder">
+                {% endif  %}
+            </div>
         </div>
-    {% endif %}
+    </div>
 {% endblock %}
