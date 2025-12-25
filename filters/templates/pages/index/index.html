@@ -1,1 +1,25 @@
 {% extends 'base.html' %}
+
+{% block title %}Image Filters{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/pages/index/index.css') }}">
+    <script src="{{ url_for('static', filename='/js/index/index.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Image Filters</h1>
+        <p>Welcome to the Image Filters application! Choose a filter from the navigation menu to get started.</p>
+        <div class="carousel">
+          <div class="carousel-track">
+            <img src="/static/images/carousel/standard.jpg" />
+            <img src="/static/images/carousel/pixelated_standard.jpg" />
+            <img src="/static/images/carousel/duotone_standard.jpg" />
+            <img src="/static/images/carousel/grayscale_standard.jpg" />
+            <img src="/static/images/carousel/blur_standard.jpg" />
+            <img src="/static/images/carousel/inverted_standard.jpg" />
+          </div>
+        </div>
+    </div>
+{% endblock %}

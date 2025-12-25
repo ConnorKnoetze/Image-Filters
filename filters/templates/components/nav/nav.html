@@ -1,4 +1,15 @@
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/components/nav/nav.css') }}">
+{% endblock %}
+
 <nav>
+    <a href="/">
+    <div class="nav-brand">
+        <h1>🖼️</h1>
+        <p>Image Filters</p>
+    </div>
+    </a>
+
     <ul class="nav-list">
         {% for item in nav_items %}
             <li class="nav-item">
