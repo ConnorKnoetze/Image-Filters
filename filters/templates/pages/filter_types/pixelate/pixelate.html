@@ -1,29 +1,43 @@
 {% extends 'base.html' %}
 {% block title %}Pixelate Filter{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='filters/css/pages/filter_types/pixelate/pixelate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/pages/filter_types/filter_general.css') }}">
+    <script src="{{ url_for('static', filename='js/components/slider.js') }}"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        window.FilterSlider?.initSliders();
+      });
+    </script>
 {% endblock %}
+
 {% block body %}
-    <div class="container">
-        <h1>Pixelate Filter</h1>
-        {% include 'components/forms/image_upload_form.html' %}
-        <div class="controls">
-            <label for="pixel-size">Pixel Size:</label>
-            <input type="range" id="pixel-size" name="pixel-size" min="1" max="50" value="10">
+    <div class="filter-container">
+        <div class="container">
+            <h1>Pixelate Filter</h1>
+            <div class="controls">
+                <label for="pixel-size">Pixel Size:</label>
+                <input type="range" id="pixel-size" name="pixel-size" min="1" max="128" value="10" data-slider-target="#pixel-size-value">
+                <span id="pixel-size-value" class="slider-value">10</span>
+            </div>
+            {% include 'components/forms/image_upload_form.html' %}
         </div>
-    </div>
-    {% if original_url %}
         <div class="image-results">
             <div class="image-container">
                 <h2>Original Image</h2>
-                <img src="{{ original_url }}" alt="Original Image">
+                {% if original_url %}
+                    <img src="{{ original_url }}" alt="Original Image">
+                {% else %}
+                <img src="{{ url_for('static', filename='/images/assets/upload_placeholder.png') }}" alt="upload_placeholder">
+                {% endif %}
             </div>
-            {% if processed_url %}
-                <div class="image-container">
-                    <h2>Pixelated Image</h2>
+            <div class="image-container">
+                <h2>Duotone Image</h2>
+                {% if processed_url %}
                     <img src="{{ processed_url }}" alt="Pixelated Image">
-                </div>
-            {% endif  %}
+                {% else %}
+                    <img src="{{ url_for('static', filename='/images/assets/upload_placeholder.png') }}" alt="upload_placeholder">
+                {% endif  %}
+            </div>
         </div>
-    {% endif %}
+    </div>
 {% endblock %}

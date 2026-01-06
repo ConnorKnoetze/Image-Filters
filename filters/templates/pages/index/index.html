@@ -1,1 +1,43 @@
 {% extends 'base.html' %}
+
+{% block title %}Image Filters{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/pages/index/index.css') }}">
+    <script src="{{ url_for('static', filename='/js/index/index.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Image Filters</h1>
+        <p>Welcome to my Image Filters application! Choose a filter from the navigation menu to get started.</p>
+        <div class="carousel">
+          <div class="carousel-track">
+            <figure class="slide">
+              <img src="/static/images/carousel/standard.jpg" alt="Standard" />
+              <figcaption class="caption">Standard</figcaption>
+            </figure>
+            <figure class="slide">
+              <img src="/static/images/carousel/pixelated_standard.jpg" alt="Pixelated" />
+              <figcaption class="caption">Pixelated</figcaption>
+            </figure>
+            <figure class="slide">
+              <img src="/static/images/carousel/duotone_standard.jpg" alt="Duotone" />
+              <figcaption class="caption">Duotone</figcaption>
+            </figure>
+            <figure class="slide">
+              <img src="/static/images/carousel/grayscale_standard.jpg" alt="Grayscale" />
+              <figcaption class="caption">Grayscale</figcaption>
+            </figure>
+            <figure class="slide">
+              <img src="/static/images/carousel/blur_standard.jpg" alt="Gaussian" />
+              <figcaption class="caption">Gaussian Blur</figcaption>
+            </figure>
+            <figure class="slide">
+              <img src="/static/images/carousel/inverted_standard.jpg" alt="Inverted" />
+              <figcaption class="caption">Inverted</figcaption>
+            </figure>
+          </div>
+        </div>
+    </div>
+{% endblock %}

@@ -10,8 +10,19 @@ def create_app():
 
     from filters.blueprints.index.index import index_bp
     app.register_blueprint(index_bp)
+
+    ## Register filter blueprints
     from filters.blueprints.filter_types.pixelate.pixelate import pixelate_bp
     app.register_blueprint(pixelate_bp)
+    from filters.blueprints.filter_types.grayscale.grayscale import grayscale_bp
+    app.register_blueprint(grayscale_bp)
+    from filters.blueprints.filter_types.inverted.inverted import inverted_bp
+    app.register_blueprint(inverted_bp)
+    from filters.blueprints.filter_types.duotone.duotone import duotone_bp
+    app.register_blueprint(duotone_bp)
+    from filters.blueprints.filter_types.gaussian.gaussian import gaussian_bp
+    app.register_blueprint(gaussian_bp)
+
     from filters.blueprints.upload.upload import upload_bp
     app.register_blueprint(upload_bp)
 

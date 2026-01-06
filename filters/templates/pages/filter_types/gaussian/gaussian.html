@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Gaussian Blur{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/pages/filter_types/filter_general.css') }}">
+    <script src="{{ url_for('static', filename='js/components/slider.js') }}"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        window.FilterSlider?.initSliders();
+      });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="filter-container">
+        <div class="container">
+            <h1>Gaussian Blur Filter</h1>
+            <div class="controls">
+                <label for="radius">Radius:</label>
+                <input type="range" id="radius" name="radius" min="1" max="100" value="20" data-slider-target="#radius-value">
+                <span id="radius-value" class="slider-value">1</span>
+            </div>
+            {% include 'components/forms/image_upload_form.html' %}
+        </div>
+        <div class="image-results">
+            <div class="image-container">
+                <h2>Original Image</h2>
+                {% if original_url %}
+                    <img src="{{ original_url }}" alt="Original Image">
+                {% else %}
+                <img src="{{ url_for('static', filename='/images/assets/upload_placeholder.png') }}" alt="upload_placeholder">
+                {% endif %}
+            </div>
+            <div class="image-container">
+                <h2>Duotone Image</h2>
+                {% if processed_url %}
+                    <img src="{{ processed_url }}" alt="Gaussian Image">
+                {% else %}
+                    <img src="{{ url_for('static', filename='/images/assets/upload_placeholder.png') }}" alt="upload_placeholder">
+                {% endif  %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
