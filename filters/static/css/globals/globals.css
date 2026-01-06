@@ -1,0 +1,63 @@
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #ff9800;
+    --text-color: #ffffff;
+    --background-color: #121212;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --carousel-min-height: 320px;
+}
+
+body{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('/static/images/background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    box-sizing: border-box;
+}
+
+.blur-layer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    max-width: 1400px;
+    height: 100vh;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    background: rgba(10,0,20,0.5);
+    backdrop-filter: blur(5px);
+}
+
+
+@media (max-width: 1200px) {
+    .main-container{
+        width: 90%;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .main-container{
+        width: 100%;
+    }
+}

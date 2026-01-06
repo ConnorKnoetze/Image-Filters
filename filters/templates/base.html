@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Filters{% endblock %}</title>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/globals/globals.css') }}">
     {% block extra_css %} {% endblock %}
 </head>
 <body>
-    {% include 'components/nav/nav.html' %}
-    {% block body %} {% endblock %}
+    <div class="blur-layer">
+        <div class="main-container">
+            {% include 'components/nav/nav.html' %}
+            {% block body %} {% endblock %}
+        </div>
+    </div>
 </body>
 </html>
