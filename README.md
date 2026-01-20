@@ -9,12 +9,10 @@ An instanced upload, image filters website where users upload images to apply a 
 - [Overview](#overview)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
-- [Demo](#demo)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Running the app (development)](#running-the-app-development)
-- [Usage](#usage)
 - [Available Filters](#available-filters)
 
 ---
